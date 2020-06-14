@@ -1,13 +1,36 @@
 import React from "react";
 import { shallow } from "enzyme";
 import Headline from "./Headline";
-import { findByDataAttribute } from "../../../utils";
+import { findByDataAttribute, checkProps } from "../../../utils";
 
 const setUp = (props = {}) => {
 	return shallow(<Headline {...props} />);
 };
 
 describe("Headline Component", () => {
+	//check propTypes
+	describe("Check PropTypes", () => {
+		it("Should not throw warning", () => {
+			const expectedProps = {
+				header: "Test Header",
+				desc: "test desc",
+				tempArray: [
+					{
+						fName: "Test fName",
+						lName: "Test lName",
+						email: "test@email.com",
+						age: 23,
+						onlineStatus: true,
+					},
+				],
+			};
+			const propsErr = checkProps(Headline, expectedProps);
+
+			expect(propsErr).toBeUndefined();
+		});
+	});
+
+	// test when props are passed
 	describe("Component with props", () => {
 		let wrapper;
 		beforeEach(() => {
@@ -34,6 +57,7 @@ describe("Headline Component", () => {
 		});
 	});
 
+	//test when there is no prop passed
 	describe("Component with no props", () => {
 		let wrapper;
 		beforeEach(() => {
