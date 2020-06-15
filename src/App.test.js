@@ -1,9 +1,16 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import App from "./App";
-import { shallow } from "enzyme";
+import { Provider } from "react-redux";
+import { store } from "./createStore";
 
-test("renders learn react link", () => {
-	const app = shallow(<App />);
-	const node = app.find(".App");
-	expect(node.length).toBe(1);
+it("renders without crashing", () => {
+	const div = document.createElement("div");
+	ReactDOM.render(
+		<Provider store={store}>
+			<App />
+		</Provider>,
+		div
+	);
+	ReactDOM.unmountComponentAtNode(div);
 });
