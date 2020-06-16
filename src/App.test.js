@@ -1,16 +1,33 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import App from "./App";
-import { Provider } from "react-redux";
-import { store } from "./createStore";
+import { shallow } from "enzyme";
+import { findByDataAttribute, testStore } from "../utils";
 
-it("renders without crashing", () => {
-	const div = document.createElement("div");
-	ReactDOM.render(
-		<Provider store={store}>
-			<App />
-		</Provider>,
-		div
-	);
-	ReactDOM.unmountComponentAtNode(div);
+const setUp = (initiaState = {}) => {
+	const store = testStore(initiaState);
+	const wrapper = shallow(<App store={store} />)
+		.childAt(0)
+		.dive();
+	return wrapper;
+};
+
+describe("App component", () => {
+	let wrapper;
+	beforeEach(() => {
+		const initialState = {
+			posts: [
+				{ title: "title 1", body: "test body 1" },
+				{ title: "title 2", body: "test body 2" },
+				{ title: "title 3", body: "test body 3" },
+				{ title: "title 4", body: "test body 4" },
+			],
+		};
+		wrapper = setUp(initialState);
+	});
+
+	it("Should render without errors", () => {
+		const component = findByDataAttribute(wrapper, "appComponent");
+		console.log({ component });
+		expect(component.length).toBe(1);
+	});
 });

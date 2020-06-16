@@ -19,7 +19,7 @@ const tempArr = [
 
 function App({ fetchPosts, posts }) {
 	const doFetch = () => {
-		fetchPosts()
+		fetchPosts();
 	};
 
 	const configButton = {
@@ -28,7 +28,7 @@ function App({ fetchPosts, posts }) {
 	};
 
 	return (
-		<div className="App">
+		<div data-test="appComponent">
 			<Header />
 			<section className="main">
 				<Headline
@@ -40,15 +40,15 @@ function App({ fetchPosts, posts }) {
 				{posts.length > 0 && (
 					<div>
 						{posts.map((post, index) => {
-							const {title, body} = post;
+							const { title, body } = post;
 							const configListItem = {
-								title, desc: body
+								title,
+								desc: body,
 							};
 
-							return <ListItem key={index} {...configListItem} />
+							return <ListItem key={index} {...configListItem} />;
 						})}
 					</div>
-
 				)}
 			</section>
 		</div>
