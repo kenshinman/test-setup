@@ -27,7 +27,6 @@ describe("App component", () => {
 
 	it("Should render without errors", () => {
 		const component = findByDataAttribute(wrapper, "appComponent");
-		console.log({ component });
 		expect(component.length).toBe(1);
 	});
 });
